@@ -11,13 +11,14 @@ function getArg(key) {
   return value.replace(`--${key}=`, '')
 }
 
-const here = fileURLToPath(new URL('.', import.meta.url))
+const here = new URL('.', import.meta.url)
 
 const configArg = getArg('config')
 const outputArg = getArg('output')
+
 const configPath = configArg
-  ? join(cwd(), configArg)
-  : join(here, './styleguide.mjs')
+  ? `file://${cwd()}/${configArg}`
+  : here + '/styleguide.mjs'
 
 let config = {}
 try {
